@@ -1,6 +1,7 @@
 package org.nttdatabc.mscustomer.controller;
 
 import org.nttdatabc.mscustomer.api.CustomerApi;
+import org.nttdatabc.mscustomer.model.AuthorizedSigner;
 import org.nttdatabc.mscustomer.model.Customer;
 import org.nttdatabc.mscustomer.service.CustomerService;
 import org.nttdatabc.mscustomer.utils.exceptions.errors.ErrorResponseException;
@@ -42,8 +43,24 @@ public class CustomerController implements CustomerApi {
     @Override
     public ResponseEntity<Void> updateCustomer(Customer customer) throws ErrorResponseException {
         customerService.updateCustomerService(customer);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<Void> deleteCustomerById(String customerId) throws ErrorResponseException {
+        customerService.deleteCustomerByIdService(customerId);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 
+    @Override
+    public ResponseEntity<List<AuthorizedSigner>> getAuthorizedSignersByCustomerId(String customerId) throws ErrorResponseException {
+        List<AuthorizedSigner> listaAuthorized = customerService.getAuthorizedSignersByCustomerIdService(customerId);
+        return new ResponseEntity<>(listaAuthorized, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> createAuthorizedSignersByCustomerId(String customerId, AuthorizedSigner authorizedSigner) throws ErrorResponseException {
+        customerService.createAuthorizedSignersByCustomerId(customerId, authorizedSigner);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
 }
