@@ -23,8 +23,12 @@ public class CustomerController implements CustomerApi {
     private CustomerService customerService;
 
     @Override
-    public ResponseEntity<Void> createCustomer(Customer customer) throws ErrorResponseException {
-        customerService.createCustomerService(customer);
+    public ResponseEntity<Void> createCustomer(Customer customer) {
+        try {
+            customerService.createCustomerService(customer);
+        } catch (ErrorResponseException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
@@ -35,32 +39,54 @@ public class CustomerController implements CustomerApi {
     }
 
     @Override
-    public ResponseEntity<Customer> getCustomerById(String customerId) throws ErrorResponseException {
-        Customer customerById = customerService.getCustomerByIdService(customerId);
+    public ResponseEntity<Customer> getCustomerById(String customerId)  {
+        Customer customerById = null;
+        try {
+            customerById = customerService.getCustomerByIdService(customerId);
+        } catch (ErrorResponseException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<>(customerById, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Void> updateCustomer(Customer customer) throws ErrorResponseException {
-        customerService.updateCustomerService(customer);
+    public ResponseEntity<Void> updateCustomer(Customer customer)  {
+        try {
+            customerService.updateCustomerService(customer);
+        } catch (ErrorResponseException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Void> deleteCustomerById(String customerId) throws ErrorResponseException {
-        customerService.deleteCustomerByIdService(customerId);
+    public ResponseEntity<Void> deleteCustomerById(String customerId)  {
+        try {
+            customerService.deleteCustomerByIdService(customerId);
+        } catch (ErrorResponseException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<AuthorizedSigner>> getAuthorizedSignersByCustomerId(String customerId) throws ErrorResponseException {
-        List<AuthorizedSigner> listaAuthorized = customerService.getAuthorizedSignersByCustomerIdService(customerId);
+    public ResponseEntity<List<AuthorizedSigner>> getAuthorizedSignersByCustomerId(String customerId)  {
+        List<AuthorizedSigner> listaAuthorized = null;
+        try {
+            listaAuthorized = customerService.getAuthorizedSignersByCustomerIdService(customerId);
+        } catch (ErrorResponseException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<>(listaAuthorized, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Void> createAuthorizedSignersByCustomerId(String customerId, AuthorizedSigner authorizedSigner) throws ErrorResponseException {
-        customerService.createAuthorizedSignersByCustomerId(customerId, authorizedSigner);
+    public ResponseEntity<Void> createAuthorizedSignersByCustomerId(String customerId, AuthorizedSigner authorizedSigner)  {
+        try {
+            customerService.createAuthorizedSignersByCustomerId(customerId, authorizedSigner);
+        } catch (ErrorResponseException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 }

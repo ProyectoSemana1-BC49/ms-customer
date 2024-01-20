@@ -10,17 +10,17 @@ info:
   license:
     name: Licencia MIT
     url: https://www.example.com/license
-servers: 
+servers:
   - url: http://localhost:8080/api/v1
 tags:
-  - name: customer
+  - name: customers
 
 paths:
   /customer:
     get:
       operationId: getAllCustomers
-      tags: 
-        - customer
+      tags:
+        - customers
       summary: Obtener lista de todos los clientes
       responses:
         '200':
@@ -33,8 +33,8 @@ paths:
                   $ref: "#/components/schemas/Customer"
     post:
       operationId: createCustomer
-      tags: 
-        - customer
+      tags:
+        - customers
       summary: Crear un nuevo cliente
       requestBody:
         required: true
@@ -49,8 +49,8 @@ paths:
           description: Error en Request
     put:
       operationId: updateCustomer
-      tags: 
-        - customer
+      tags:
+        - customers
       summary: Actualizar un cliente
       requestBody:
         required: true
@@ -65,12 +65,12 @@ paths:
           description: Error Request
         '404':
           description: Recurso no encontrado
-      
+
   /customer/{customer_id}:
     get:
       operationId: getCustomerById
-      tags: 
-        - customer
+      tags:
+        - customers
       summary: Obtener información de un cliente
       parameters:
         - in: path
@@ -92,8 +92,8 @@ paths:
           description: Recurso no encontrado
     delete:
       operationId: deleteCustomerById
-      tags: 
-        - customer
+      tags:
+        - customers
       summary: Eliminar un cliente
       parameters:
         - in: path
@@ -113,8 +113,8 @@ paths:
   /customer/authorized_signers/{customer_id}:
     get:
       operationId: getAuthorizedSignersByCustomerId
-      tags: 
-        - customer
+      tags:
+        - customers
       summary: Obtener los signatarios autorizados de un cliente
       parameters:
         - in: path
@@ -138,8 +138,8 @@ paths:
           description: Recurso no encontrado
     post:
       operationId: createAuthorizedSignersByCustomerId
-      tags: 
-        - customer
+      tags:
+        - customers
       summary: Crea Signatarios autorizados por cliente
       parameters:
         - in: path
@@ -168,7 +168,6 @@ components:
       type: object
       properties:
         _id:
-          nullable: true
           type: string
         identifier:
           type: string
@@ -186,7 +185,6 @@ components:
           type: string
         authorizedSigners:
           type: array
-          nullable: true
           items:
             $ref: '#/components/schemas/AuthorizedSigner'
     AuthorizedSigner:
