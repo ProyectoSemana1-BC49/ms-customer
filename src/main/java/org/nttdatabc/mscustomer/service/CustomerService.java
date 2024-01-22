@@ -37,7 +37,7 @@ public class CustomerService {
         customerRepository.save(customer);
     }
     public Customer getCustomerByIdService(String customerId) throws ErrorResponseException {
-        Optional<Customer> customer = customerRepository.findByIdentifier(customerId);
+        Optional<Customer> customer = customerRepository.findById(customerId);
         return customer.orElseThrow(() -> new ErrorResponseException(EX_NOT_FOUND_RECURSO, HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND));
     }
 
