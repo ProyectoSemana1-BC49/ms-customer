@@ -11,6 +11,7 @@ import static org.nttdatabc.mscustomer.utils.CustomerValidator.validateUserNotRe
 import static org.nttdatabc.mscustomer.utils.CustomerValidator.verifyTypePerson;
 import static org.nttdatabc.mscustomer.utils.Utilitarios.generateUuid;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.nttdatabc.mscustomer.model.AuthorizedSigner;
@@ -106,6 +107,10 @@ public class CustomerServiceImpl implements CustomerService {
           HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND);
     }
     List<AuthorizedSigner> existingSigners = customer.get().getAuthorizedSigners();
+    if (existingSigners == null) {
+      existingSigners = new ArrayList<>();
+      customer.get().setAuthorizedSigners(existingSigners);
+    }
     existingSigners.add(authorizedSigner);
     customerRepository.save(customer.get());
   }
