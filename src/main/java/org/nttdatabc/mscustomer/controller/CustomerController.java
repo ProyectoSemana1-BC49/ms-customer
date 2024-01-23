@@ -3,7 +3,7 @@ package org.nttdatabc.mscustomer.controller;
 import org.nttdatabc.mscustomer.api.CustomerApi;
 import org.nttdatabc.mscustomer.model.AuthorizedSigner;
 import org.nttdatabc.mscustomer.model.Customer;
-import org.nttdatabc.mscustomer.service.CustomerService;
+import org.nttdatabc.mscustomer.service.CustomerServiceImpl;
 import org.nttdatabc.mscustomer.utils.exceptions.errors.ErrorResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +20,12 @@ import static org.nttdatabc.mscustomer.utils.Constantes.PREFIX_PATH;
 public class CustomerController implements CustomerApi {
 
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceImpl customerServiceImpl;
 
     @Override
     public ResponseEntity<Void> createCustomer(Customer customer) {
         try {
-            customerService.createCustomerService(customer);
+            customerServiceImpl.createCustomerService(customer);
         } catch (ErrorResponseException e) {
             throw new RuntimeException(e);
         }
@@ -34,7 +34,7 @@ public class CustomerController implements CustomerApi {
 
     @Override
     public ResponseEntity<List<Customer>> getAllCustomers() {
-        List<Customer>listaCustomers = customerService.getAllCustomersService();
+        List<Customer>listaCustomers = customerServiceImpl.getAllCustomersService();
         return new ResponseEntity<>(listaCustomers, HttpStatus.OK);
     }
 
@@ -42,7 +42,7 @@ public class CustomerController implements CustomerApi {
     public ResponseEntity<Customer> getCustomerById(String customerId)  {
         Customer customerById = null;
         try {
-            customerById = customerService.getCustomerByIdService(customerId);
+            customerById = customerServiceImpl.getCustomerByIdService(customerId);
         } catch (ErrorResponseException e) {
             throw new RuntimeException(e);
         }
@@ -52,7 +52,7 @@ public class CustomerController implements CustomerApi {
     @Override
     public ResponseEntity<Void> updateCustomer(Customer customer)  {
         try {
-            customerService.updateCustomerService(customer);
+            customerServiceImpl.updateCustomerService(customer);
         } catch (ErrorResponseException e) {
             throw new RuntimeException(e);
         }
@@ -62,7 +62,7 @@ public class CustomerController implements CustomerApi {
     @Override
     public ResponseEntity<Void> deleteCustomerById(String customerId)  {
         try {
-            customerService.deleteCustomerByIdService(customerId);
+            customerServiceImpl.deleteCustomerByIdService(customerId);
         } catch (ErrorResponseException e) {
             throw new RuntimeException(e);
         }
@@ -73,7 +73,7 @@ public class CustomerController implements CustomerApi {
     public ResponseEntity<List<AuthorizedSigner>> getAuthorizedSignersByCustomerId(String customerId)  {
         List<AuthorizedSigner> listaAuthorized = null;
         try {
-            listaAuthorized = customerService.getAuthorizedSignersByCustomerIdService(customerId);
+            listaAuthorized = customerServiceImpl.getAuthorizedSignersByCustomerIdService(customerId);
         } catch (ErrorResponseException e) {
             throw new RuntimeException(e);
         }
@@ -83,7 +83,7 @@ public class CustomerController implements CustomerApi {
     @Override
     public ResponseEntity<Void> createAuthorizedSignersByCustomerId(String customerId, AuthorizedSigner authorizedSigner)  {
         try {
-            customerService.createAuthorizedSignersByCustomerId(customerId, authorizedSigner);
+            customerServiceImpl.createAuthorizedSignersByCustomerId(customerId, authorizedSigner);
         } catch (ErrorResponseException e) {
             throw new RuntimeException(e);
         }
